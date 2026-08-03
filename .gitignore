@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Task receipts — generated per run, not part of the shipped Skill
+tasks/
+reports/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Logs that may contain real paths / secrets
+*.log
+
+# Local screenshots / recordings
+screenshots/
+recordings/
+
+# Reviewer-specific caches
+.cache/
+.reviewer/
+
+# Plan / handoff scratch
+PLAN*.*
+TODO.local.*

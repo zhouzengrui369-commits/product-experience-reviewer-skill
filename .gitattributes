@@ -1,0 +1,3 @@
+# The Core is a byte-pinned canonical document and intentionally retains
+# Markdown hard-break spaces from the signed source.
+product-experience-reviewer/references/PRODUCT_EXPERIENCE_REVIEWER_CORE.md whitespace=-blank-at-eol

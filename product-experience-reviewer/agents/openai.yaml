@@ -1,0 +1,8 @@
+interface:
+  display_name: "Product Experience Reviewer"
+  short_description: "Evidence-first runtime UX review and focused retest"
+  brand_color: "#5B5CE2"
+  default_prompt: "Use $product-experience-reviewer to independently review the real product candidate, preserve Runtime/Prototype separation, and produce evidence-bound verdicts without modifying the product."
+
+policy:
+  allow_implicit_invocation: true
