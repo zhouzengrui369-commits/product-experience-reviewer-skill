@@ -1,0 +1,23 @@
+capability_id: geo-context
+adoption_mode: REVIEW
+execution_owner: product-experience-reviewer-skill-pm
+invocation_owner: consumer-product-project-pm
+current_release_scope: read-only-review-extension
+runtime_implementation: false
+responsibilities:
+  - verify_capability_identity_in_spatial_product_candidates
+  - verify_product_pm_goal_and_milestone_identity
+  - review_truth_provenance_privacy_preservation
+  - require_actual_spatial_browser_device_or_export_evidence
+  - grade_spatial_experience_issues_without_changing_product_code
+  - hand_findings_back_to_consumer_project_pm
+prohibited:
+  - product_writes
+  - product_configuration_changes
+  - becoming_implementation_worker_in_same_review
+  - choosing_consumer_product_release_priority
+  - Human_Owner_Gate_PASS
+central_candidate:
+  repository: zhouzengrui369-commits/knowme-ecosystem
+  commit: 6edb5401084de24491038ac55525f584e9943bd7
+  schema_sha256: 8695f3d9d376bf5591138d78b1460c17758845312aeca52a4a0597ee873032df
