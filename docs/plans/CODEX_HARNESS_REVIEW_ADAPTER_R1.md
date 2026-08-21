@@ -1,53 +1,49 @@
 # CODEX_HARNESS_REVIEW_ADAPTER_R1
 
-> Repository：`zhouzengrui369-commits/product-experience-reviewer-skill`  
-> Program：`ECOSYSTEM-CODEX-HARNESS-R1`  
-> State：`QUEUED / PLANNING_ONLY`  
-> Execution owner：Product Experience Reviewer Skill Project PM  
-> Central capability：`zhouzengrui369-commits/knowme-ecosystem@8ccb543804a7881fd37b31e1ce35085ca7285a76`  
-> Central Draft PR：`knowme-ecosystem#21`  
-> Reference Gateway plan：`chatgpt-parent-pm#12`  
-> Creation base：`chatgpt/v03-digital-twin-review-plan-r1@39c63bdf94587c488cf48a7e7269694e6b4064d0`
+> Repository: `zhouzengrui369-commits/product-experience-reviewer-skill`  
+> Program: `ECOSYSTEM-CODEX-HARNESS-R1`  
+> State: `QUEUED / PLANNING_ONLY`  
+> Owner: Product Experience Reviewer Skill Project PM  
+> Central capability: `zhouzengrui369-commits/knowme-ecosystem@fd01ef7619a31b7ffca5dd2205a2e31a96fac834`  
+> Central PR: `knowme-ecosystem#21`  
+> Parent PM Gateway/Runner: `chatgpt-parent-pm#12` / `chatgpt-parent-pm#14`  
+> Runner plan: [`REVIEWER_SELF_HOSTED_RUNNER_ADOPTION_R1.md`](./REVIEWER_SELF_HOSTED_RUNNER_ADOPTION_R1.md)
 
 ## 1. Purpose
 
-Add an opt-in, read-only Codex Harness support adapter for Product Experience Reviewer workflows.
+Add an opt-in, read-only Codex Harness support adapter for source/static review, candidate/evidence identity reconciliation, evidence indexing, checklist/findings drafts and resumable read-only sessions.
 
-The adapter may help with:
+It cannot substitute for real browser/App/device operation, native filesystem/process behavior, actual export, trusted keyboard, product repair/deployment or Human Owner judgment.
 
-- source/static review;
-- candidate/artifact/runtime/test-data identity reconciliation;
-- evidence manifest indexing;
-- review checklist generation;
-- findings and report drafts;
-- protected evidence hash/index maintenance;
-- resumable read-only review sessions.
+## 2. Execution-plane boundary
 
-It cannot substitute for:
+```text
+GitHub Self-hosted Runner
+  = Reviewer source/test execution or separately authorized frozen-Candidate deployment support
 
-- real browser, App or device operation;
-- native file picker/filesystem/process behavior;
-- actual PPTX/PDF export;
-- trusted native keyboard input;
-- physical mobile/watch evidence;
-- product source repair;
-- product deployment;
-- Human Owner value decision.
+Codex Harness
+  = optional Sol/xhigh read-only source/evidence analysis inside Runner authority
 
-## 2. Current protected lanes
+Real product tool
+  = actual browser/App/device journey
+```
 
-Before activation, the Reviewer PM must re-read live GitHub truth for:
+Neither Runner nor Harness may claim a product journey it did not perform.
 
-- general Reviewer Core, profiles, report/developer-fix/focused-retest contracts;
-- Spatial Experience Extension PR #1;
-- Digital Twin Trust Review PR #2;
-- current release/version/fixtures/tests;
-- consumer Project PM invocation and exact candidate requirements;
-- central capability and Parent PM Gateway readiness.
+## 3. Protected lanes
 
-This plan does not modify or relabel PR #1/#2, consumer products or historical reports.
+Before activation, re-read live GitHub truth for:
 
-## 3. Role and sandbox policy
+- Reviewer Core/profiles/release/contracts;
+- Spatial PR #1;
+- Digital Twin Trust PR #2;
+- Harness PR #4 / Issue #5;
+- consumer Project PM invocation and exact Candidate requirements;
+- central Runner/Gateway readiness.
+
+This plan changes no consumer source or historical report.
+
+## 4. Fixed policy
 
 ```text
 REVIEW_PROFILE=Sol/xhigh
@@ -55,36 +51,34 @@ SANDBOX=read-only
 SILENT_FALLBACK=FORBIDDEN
 CONTRACT_LABEL_strongest=FORBIDDEN
 CONSUMER_PRODUCT_MUTATION=NO
-LOCAL_DEPLOYMENT=NO
-HUMAN_OWNER_PRODUCT_VERDICT=NO
+D2_D3_PUBLIC_EVIDENCE=NO
+REAL_PRODUCT_TOOL_REQUIRED_WHEN_CLAIMED=YES
+REVIEWER_PASS_IS_OWNER_PASS=NO
+RUNNER_REQUEST_REQUIRED=YES
 ```
 
-Sol/xhigh availability must be discovered before execution. If unavailable, return a blocker rather than substitute another model/profile.
+## 5. Allowed R1 inputs
 
-## 4. Allowed R1 inputs
-
-- public/source code and repository docs;
+- public/source code and docs;
 - exact candidate/PR/SHA metadata;
 - sanitized evidence manifests;
 - synthetic D0/D1 fixtures;
-- redacted screenshots and product observations;
+- redacted screenshots/observations;
 - artifact/runtime hashes and normalized receipts;
-- consumer Project Profile and review request.
+- consumer Project Profile and Review Request.
 
-## 5. Forbidden R1 inputs/actions
+## 6. Forbidden R1 inputs/actions
 
-- consumer product source edits;
-- deployment/start/stop of product Runtime unless performed by a separate authorized tool/worker outside the Reviewer Harness session;
-- full D2/D3 or production PII content in ordinary prompts/evidence;
-- unredacted credentials/cookies/private files;
-- using App Server event simulation as real product interaction;
-- claiming trusted keyboard/device behavior from synthetic dispatch;
-- replacing or rewriting historical review reports;
-- merge/release or Human Owner decisions.
+- consumer source edits;
+- product Runtime start/stop except a separate product-local deployment request;
+- D2/D3/production PII in ordinary prompts/evidence;
+- unredacted secrets/private files;
+- App Server or Runner event presented as real product interaction;
+- synthetic key presented as trusted native keyboard;
+- historical report rewrite;
+- merge/release or Human Owner decision.
 
-## 6. Evidence-layer boundary
-
-The adapter must classify evidence as:
+## 7. Evidence-layer boundary
 
 ```text
 PLANNING
@@ -96,136 +90,88 @@ HUMAN_OWNER
 MERGE_RELEASE
 ```
 
-The Harness can directly support the first three layers and index evidence from higher layers. It cannot create a higher-layer PASS merely by reading or summarizing a receipt.
+Harness directly supports the first three and indexes higher-layer evidence. Runner may provide a technical deployment/health receipt. Neither creates a higher-layer PASS automatically.
 
 Required invariants:
 
 ```text
 HARNESS_SOURCE_REVIEW_PASS != PRODUCT_RUNTIME_PASS
+RUNNER_DEPLOYMENT_PASS != PRODUCT_EXPERIENCE_PASS
 APP_SERVER_EVENT != REAL_BROWSER_OR_APP_INTERACTION
 SYNTHETIC_KEY_EVENT != TRUSTED_NATIVE_KEYBOARD
 REVIEWER_PASS != HUMAN_OWNER_PASS
 ```
 
-## 7. Activation prerequisites
+## 8. Activation prerequisites
 
-- [ ] live PR #1/#2 and current Reviewer Core truth restored;
-- [ ] explicit transition or non-conflicting successor Goal;
-- [ ] central capability/Gateway/Binary/Protocol Lock accepted for Pilot;
-- [ ] exact Sol/xhigh profile available;
-- [ ] opt-in consumer review request with complete candidate identity;
+- [ ] live PR #1/#2/#4 and Reviewer Core restored;
+- [ ] explicit transition/non-conflicting Goal;
+- [ ] central Runner registration topology/Gateway accepted;
+- [ ] stable Codex Binary/Protocol Lock and Sol/xhigh;
+- [ ] complete opt-in Review Request/Candidate identity;
 - [ ] repository-local GOAL/TASK/PLAN/RESULT/EVIDENCE/commands.log;
 - [ ] read-only path/network/data policy;
-- [ ] redaction and no-consumer-mutation proof;
-- [ ] real product-operation tool/worker identified when required.
+- [ ] redaction/no-consumer-mutation proof;
+- [ ] real product tool/worker identified when required.
 
-Until then：`REVIEWER_HARNESS_STATE=QUEUED`.
+Until then:
 
-## 8. Milestones
+```text
+REVIEWER_HARNESS_STATE=QUEUED
+```
+
+## 9. Milestones
 
 ### RH0 — Current truth and profile mapping
 
-Restore Reviewer Core/PR #1/#2/fixtures/release truth. Map the central Task Envelope and Model Profile to existing Review Request/Profile contracts without weakening exact candidate or evidence requirements.
+Map central Runner/Harness contracts to existing Reviewer Request/Profile without weakening exact Candidate or evidence requirements.
 
-### RH1 — Read-only Harness Review Envelope
+### RH1 — Read-only Review Envelope
 
-Implement/validate:
+Validate exact repository/project/goal/branch/Candidate/artifact/runtime/test-data, review mode, protected evidence, Sol/xhigh, read-only sandbox, network policy, claim ceiling and next authority.
 
-- exact repository/project/goal/branch/candidate SHA;
-- artifact/runtime/test-data identity;
-- review mode/scope/protected evidence;
-- model `Sol/xhigh`;
-- read-only sandbox;
-- no network unless exact local product/evidence endpoint;
-- claim ceiling and next authority.
+### RH2 — Evidence identity reconciliation
 
-Incomplete identity fails closed.
-
-### RH2 — Evidence index and identity reconciliation
-
-Use synthetic/previous public-safe fixtures to prove:
-
-- mixed SHA evidence rejected;
-- predecessor evidence rejected for successor claims;
-- source/static receipt not promoted to Runtime;
-- missing artifact/runtime/test-data identity blocks corresponding claims;
-- hashes and file indexes are deterministic;
-- redaction removes private content.
+Prove rejection of mixed/stale/predecessor evidence, source-to-Runtime claim escalation, missing artifact/runtime/test-data identity and unredacted private content.
 
 ### RH3 — Findings-draft support
 
-The Harness may produce a draft finding with:
+Harness may draft issue/severity/expected/actual/evidence/reproducibility/Candidate/claim-layer/focused-retest fields. Actual observations require a human/independent reviewer or real product tool.
 
-- issue ID/severity;
-- expected/actual;
-- source/evidence references;
-- reproducibility;
-- candidate identity;
-- claim layer;
-- proposed focused retest scope.
+### RH4 — Runner/real-product boundary trial
 
-A human/independent reviewer or authorized product-operation tool must confirm actual product observations. Draft findings are not automatically accepted.
+Runner provides source/test or frozen-Candidate deployment receipt; real tools operate the journey; final report distinguishes deployment evidence, tool observations and reviewer judgment.
 
-### RH4 — Real product-operation boundary trial
+### RH5 — Multi-product cold-start and Owner Reviewer Gate
 
-Run at least one trial where:
+Trial KnowMe, one of Lingxi/AOG/Copilot and a prohibited/incomplete identity fixture. Require no consumer mutation, exact Sol/xhigh, rollback and Human Owner Reviewer Extension decision.
 
-- Harness indexes source/evidence and prepares review scope;
-- real browser/App/device tools perform the product journey;
-- observations/screenshots are added separately;
-- Harness does not claim operation it did not perform;
-- final report distinguishes source analysis, tool observations and reviewer judgment.
+## 10. Required blockers
 
-### RH5 — Multi-product cold-start and Human Owner Reviewer Gate
-
-Trial on at least:
-
-- KnowMe;
-- one of Lingxi/AOG/Copilot;
-- a negative fixture with incomplete identity or prohibited data.
-
-Required:
-
-- no consumer product mutation;
-- Sol/xhigh exact profile;
-- independent review semantics preserved;
-- rollback/uninstall;
-- Human Owner Reviewer Extension decision.
-
-## 9. Required blockers
-
-- incomplete candidate/artifact/runtime/test-data identity;
-- mixed or stale evidence;
-- source/test evidence presented as Runtime/Product PASS;
-- synthetic event presented as real product interaction;
-- D2/D3/PII content without review-data Gate;
-- consumer source mutation attempt;
+- incomplete/mixed/stale Candidate evidence;
+- source/test or Runner deployment presented as product PASS;
+- synthetic event as product interaction;
+- D2/D3/PII without Gate;
+- consumer mutation;
 - non-read-only sandbox;
-- Sol/xhigh unavailable or silent fallback;
-- Reviewer presented as Product PM or Human Owner;
-- product operation required but no real tool/worker evidence exists.
+- Sol/xhigh unavailable/silent fallback;
+- Reviewer presented as Product PM/Human Owner;
+- real operation required but no tool evidence.
 
-## 10. Required evidence
+## 11. Evidence contract
 
-- central/Gateway/Binary/Schema/Model pins;
-- Reviewer source/final SHA;
-- Review Request/Task Envelope hashes;
-- candidate/artifact/runtime/test-data identities;
-- evidence layer/index hashes;
-- redaction scan;
-- no-consumer-mutation proof;
-- real product-operation references where required;
-- findings draft and final human/independent disposition separation;
-- process terminal state, blocker, claim ceiling and next authority.
+Record central Runner/Harness pins, RunnerProfile/request hashes, Binary/Schema/model, Reviewer source/final SHA, Review Request/Task hashes, Candidate/artifact/runtime/test-data, evidence layer/index hashes, redaction/no-mutation, Runner deployment receipt, real product-tool references, findings draft versus final disposition, process terminal state, first blocker and next authority.
 
-## 11. Claim ceiling
+## 12. Claim ceiling
 
 ```text
 PLANNING_ONLY
 CURRENT_REVIEWER_PR1_PR2_GATE_CHANGE=NO
+RUNNER_ADAPTER=NOT_STARTED
 CODEX_HARNESS_REVIEW_ADAPTER=NOT_STARTED
 CONSUMER_PRODUCT_MUTATION=NO
 REAL_PRODUCT_OPERATION_PROOF=NO
+PRODUCT_EXPERIENCE_PASS=NO
 HUMAN_OWNER_PRODUCT_VERDICT=NO
 AUTO_MERGE_RELEASE=NO
 REVIEWER_PM_ACTIVATION_REQUIRED
